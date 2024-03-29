@@ -1,6 +1,6 @@
-// Fetch inventory from server
 function fetchInventory() {
-    fetch('/inventory')
+    const freezer = document.getElementById('freezer').value; // Get the selected freezer value
+    fetch(`/api/show-freezer-contents?freezer=${encodeURIComponent(freezer)}`)
         .then(response => response.json())
         .then(data => {
             inventory = data;
@@ -11,9 +11,10 @@ function fetchInventory() {
         });
 }
 
+
 // Add gelato to inventory on server
 function addGelato(freezer, flavor, quantity) {
-    fetch('/add-gelato', {
+    fetch('/api/add-gelato', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -34,7 +35,7 @@ function addGelato(freezer, flavor, quantity) {
 
 // Use gelato from inventory on server
 function useGelato(freezer, flavor, quantity) {
-    fetch('/use-gelato', {
+    fetch('/api/use-gelato', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -54,7 +55,7 @@ function useGelato(freezer, flavor, quantity) {
 }
 
 function deleteGelato(freezer, flavor) {
-    fetch('/delete-gelato', {
+    fetch('/api/delete-gelato', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
